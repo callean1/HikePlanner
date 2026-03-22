@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
@@ -67,7 +68,11 @@ class JsonLinesImporter:
         for idx, batch in enumerate(self.read_lines()):
             documents = self.prepare_documents(batch)
             if documents:
-                collection.insert_many(documents)
+                # Wir teilen den Batch in 10er-Blöcke auf
+                for i in range(0, len(documents), 10):
+                    chunk = documents[i:i + 10]
+                    collection.insert_many(chunk)
+                    time.sleep(0.5) # Kurze Pause nach jedem kleinen Häppchen
                 processed += len(documents)
             print(f"inserting batch {idx} ({processed} tracks processed)")
 
