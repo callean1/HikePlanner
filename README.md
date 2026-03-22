@@ -43,3 +43,14 @@ similar dataset
 * Personalized Model
     * For a specific Hikr user
     * z.B. 100 weitere "neue" Daten eines bestimmten Benutzers 
+
+## Projektstand
+ 
+- Datenpipeline mit GPX-Daten ausgeführt
+- Tracks in Azure Cosmos DB gespeichert
+- Modelle trainiert:
+  - Linear Regression
+  - Gradient Boosting Regressor
+- Modelle als `.pkl` erzeugt
+- Azure Blob Storage eingerichtet
+- App lokal gestartet
